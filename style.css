@@ -10,6 +10,7 @@ body {
     gap: 5px;
     width: 80%;
     margin: auto;
+    margin-top: 20px;
 }
 
 .day {
@@ -17,10 +18,16 @@ body {
     padding: 10px;
     text-align: center;
     min-height: 100px;
+    position: relative;
 }
 
 button {
     padding: 10px 20px;
     margin-bottom: 20px;
     font-size: 16px;
+}
+
+strong {
+    display: block;
+    margin-bottom: 5px;
 }
