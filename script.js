@@ -15,43 +15,38 @@ const people = [
 
 function generateMonthlySchedule() {
     let today = new Date();
-    let scheduleHistory = JSON.parse(localStorage.getItem("schedule")) || [];
+    let currentMonth = today.getMonth(); // Get current month
+    let currentYear = today.getFullYear(); // Get current year
 
-    for (let i = 0; i < 4; i++) {  
-        let weekStart = new Date(today);
-        weekStart.setDate(today.getDate() + i * 7);
-        let week = weekStart.toISOString().split("T")[0];
+    let firstDay = new Date(currentYear, currentMonth, 1); // First day of the month
+    let lastDay = new Date(currentYear, currentMonth + 1, 0); // Last day of the month
+    let numDays = lastDay.getDate(); // Number of days in the current month
 
-        let schedule = { week };
+    let calendarHTML = '';
+    for (let day = 1; day <= numDays; day++) {
+        let date = new Date(currentYear, currentMonth, day);
+        let dayOfWeek = date.getDay(); // Day of the week (0 = Sunday, 6 = Saturday)
+        let dateString = date.toISOString().split('T')[0]; // ISO formatted date
 
-        for (let role of roles) {
-            let availablePeople = people.filter(p => !p.offDays.includes(week));
+        let availablePeople = people.filter(p => !p.offDays.includes(dateString));
+        let schedule = { date: dateString };
+
+        roles.forEach(role => {
             let selected = availablePeople.length > 0 ? availablePeople[Math.floor(Math.random() * availablePeople.length)] : null;
             schedule[role] = selected ? selected.name : "No Available Person";
-        }
+        });
 
-        scheduleHistory.push(schedule);
+        calendarHTML += `<div class="day">
+                            <strong>${day}</strong>
+                            <div>${schedule.Red0 || "N/A"}</div>
+                            <div>${schedule.Red1 || "N/A"}</div>
+                            <div>${schedule.Blue0 || "N/A"}</div>
+                            <div>${schedule.Blue1 || "N/A"}</div>
+                         </div>`;
     }
 
-    localStorage.setItem("schedule", JSON.stringify(scheduleHistory));
-    displaySchedule();
+    // Inject the calendar HTML into the page
+    document.querySelector("#calendar").innerHTML = calendarHTML;
 }
 
-function displaySchedule() {
-    let schedules = JSON.parse(localStorage.getItem("schedule")) || [];
-    let tbody = document.querySelector("#scheduleTable tbody");
-    tbody.innerHTML = "";
-
-    schedules.forEach(s => {
-        let row = `<tr>
-            <td>${s.week}</td>
-            <td>${s.Red0 || "N/A"}</td>
-            <td>${s.Red1 || "N/A"}</td>
-            <td>${s.Blue0 || "N/A"}</td>
-            <td>${s.Blue1 || "N/A"}</td>
-        </tr>`;
-        tbody.innerHTML += row;
-    });
-}
-
-document.addEventListener("DOMContentLoaded", displaySchedule);
+document.addEventListener("DOMContentLoaded", generateMonthlySchedule);
