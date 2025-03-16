@@ -23,9 +23,15 @@ function generateMonthlySchedule() {
     let numDays = lastDay.getDate(); // Number of days in the current month
 
     let calendarHTML = '';
+    let firstDayOfWeek = firstDay.getDay(); // Day of the week for the first day of the month (0 = Sunday, 6 = Saturday)
+
+    // Add empty cells for the first week (before the first day)
+    for (let i = 0; i < firstDayOfWeek; i++) {
+        calendarHTML += `<div class="day"></div>`;
+    }
+
     for (let day = 1; day <= numDays; day++) {
         let date = new Date(currentYear, currentMonth, day);
-        let dayOfWeek = date.getDay(); // Day of the week (0 = Sunday, 6 = Saturday)
         let dateString = date.toISOString().split('T')[0]; // ISO formatted date
 
         let availablePeople = people.filter(p => !p.offDays.includes(dateString));
@@ -49,4 +55,8 @@ function generateMonthlySchedule() {
     document.querySelector("#calendar").innerHTML = calendarHTML;
 }
 
-document.addEventListener("DOMContentLoaded", generateMonthlySchedule);
+document.addEventListener("DOMContentLoaded", () => {
+    // Ensures script is only run when the DOM is loaded
+    console.log("DOM Loaded: Generating Schedule...");
+    generateMonthlySchedule();
+});
