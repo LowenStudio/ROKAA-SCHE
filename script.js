@@ -1,16 +1,16 @@
 const roles = ["Red0", "Red1", "Blue0", "Blue1"];
 const people = [
-    { name: "Alice", offDays: ["2025-03-20"], assigned: [] },
-    { name: "Bob", offDays: ["2025-03-18"], assigned: [] },
-    { name: "Charlie", offDays: [], assigned: [] },
-    { name: "David", offDays: [], assigned: [] },
-    { name: "Emma", offDays: [], assigned: [] },
-    { name: "Frank", offDays: [], assigned: [] },
-    { name: "Grace", offDays: [], assigned: [] },
-    { name: "Hank", offDays: [], assigned: [] },
-    { name: "Ivy", offDays: [], assigned: [] },
-    { name: "Jack", offDays: [], assigned: [] },
-    { name: "Kelly", offDays: [], assigned: [] }
+    { name: "YW", offDays: ["2025-03-20"], assigned: [] },
+    { name: "HC", offDays: ["2025-03-18"], assigned: [] },
+    { name: "JM", offDays: [], assigned: [] },
+    { name: "DH", offDays: [], assigned: [] },
+    { name: "CW", offDays: [], assigned: [] },
+    { name: "JM", offDays: [], assigned: [] },
+    { name: "HH", offDays: [], assigned: [] },
+    { name: "JY", offDays: [], assigned: [] },
+    { name: "SH", offDays: [], assigned: [] },
+    { name: "DG", offDays: [], assigned: [] },
+    { name: "SW", offDays: [], assigned: [] }
 ];
 
 function generateMonthlySchedule() {
